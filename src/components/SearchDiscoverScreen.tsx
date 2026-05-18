@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppStore } from "../store/useAppStore";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const SearchDiscoverScreen = () => {
   const navigate = useNavigate();
@@ -131,7 +132,7 @@ const SearchDiscoverScreen = () => {
               {filteredClubs.length > 0 ? filteredClubs.map(club => (
                 <div key={club.id} className="flex items-center justify-between p-3 bg-card rounded-2xl border border-border/50">
                   <div className="flex items-center gap-3">
-                    <div className="text-2xl">{club.avatar}</div>
+                    <img src={club.avatar} alt={club.name} className="w-12 h-12 rounded-full object-cover" />
                     <div>
                       <h4 className="font-bold text-sm">{club.name}</h4>
                       <p className="text-xs text-muted-foreground">{club.members} members</p>

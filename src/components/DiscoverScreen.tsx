@@ -27,8 +27,8 @@ const DiscoverScreen = () => {
     const club = clubs.find(c => c.id === clubId);
     if (club) {
       toast({
-        title: club.isJoined ? "Left Community" : "Joined Community! 🎉",
-        description: club.isJoined 
+        title: club.joined ? "Left Community" : "Joined Community! 🎉",
+        description: club.joined 
           ? `You have unsubscribed from ${club.name}.`
           : `You are now a verified member of ${club.name}. Chatroom unlocked!`
       });
@@ -150,7 +150,7 @@ const DiscoverScreen = () => {
                 className="p-0 bg-card border border-border/40 hover:shadow-md transition-shadow rounded-3xl overflow-hidden animate-fade-in"
               >
                 <div className="h-28 overflow-hidden relative">
-                  <img src={club.image} alt={club.name} className="w-full h-full object-cover" />
+                  <img src={club.avatar} alt={club.name} className="w-full h-full object-cover" />
                   <Badge className="absolute top-3 right-3 bg-card/90 text-foreground border-none text-[10px]">
                     {club.category}
                   </Badge>
@@ -166,21 +166,21 @@ const DiscoverScreen = () => {
                     <div className="flex items-center gap-2">
                       <Button
                         size="sm"
-                        variant={club.isJoined ? "secondary" : "default"}
+                        variant={club.joined ? "secondary" : "default"}
                         onClick={(e) => handleJoinClubToggle(club.id, e)}
                         className="h-8 rounded-xl text-xs font-bold px-3 transition-all"
                       >
-                        {club.isJoined ? (
+                        {club.joined ? (
                           <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5" /> Joined</span>
                         ) : (
                           <span className="flex items-center gap-1"><Plus className="w-3.5 h-3.5" /> Join</span>
                         )}
                       </Button>
-                      {club.isJoined && (
+                      {club.joined && (
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={(e) => handleOpenClubChat(club.name, club.image, e)}
+                          onClick={(e) => handleOpenClubChat(club.name, club.avatar, e)}
                           className="h-8 w-8 p-0 rounded-xl border-border"
                         >
                           <MessageSquare className="w-3.5 h-3.5 text-primary" />
