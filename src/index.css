@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* UniConnect Design System - Apple-like Minimalist */
+    --background: 0 0% 98%; /* #FAFAFA */
+    --foreground: 240 10% 10%; /* Very dark gray */
+
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 240 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
+
+    --primary: 211 100% 50%; /* #007AFF iOS Blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 211 100% 65%;
+    
+    --secondary: 240 5% 96%; /* Light gray */
+    --secondary-foreground: 240 10% 10%;
+
+    --muted: 240 5% 94%;
+    --muted-foreground: 240 5% 45%;
+
+    --accent: 211 100% 50%; /* Using blue as primary accent */
+    --accent-foreground: 0 0% 100%;
+    --accent-glow: 211 100% 65%;
+
+    --success: 135 65% 45%; /* #28A745 Clean Green */
+    --success-foreground: 0 0% 100%;
+    --success-glow: 135 65% 55%;
+
+    --destructive: 0 84% 60%; /* #FF3B30 iOS Red */
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 35 100% 55%; /* #FF9500 iOS Orange */
+    --warning-foreground: 0 0% 100%;
+
+    --neon-blue: 211 100% 50%;
+    --neon-purple: 270 60% 60%;
+    --neon-green: 135 65% 45%;
+
+    --border: 240 5% 90%;
+    --input: 240 5% 90%;
+    --ring: 211 100% 50%;
+
+    --placeholder: 240 5% 65%;
+
+    --radius: 1.25rem; /* Smoother border radii */
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(var(--success-glow)));
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
+    --gradient-subtle: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--secondary)));
+    
+    /* Glass morphism */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    
+    /* Shadows - Clean & Minimalist */
+    --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px -8px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 16px 64px -16px rgba(0, 0, 0, 0.12);
+    --shadow-elegant: 0 12px 40px -12px rgba(0, 0, 0, 0.08);
+    --shadow-glow: 0 8px 30px rgba(0, 122, 255, 0.2);
+    --shadow-neon: 0 8px 30px rgba(0, 122, 255, 0.3);
+
+    /* Sidebar Variables */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 10%;
+    --sidebar-primary: 211 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 10% 10%;
+    --sidebar-border: 240 5% 90%;
+    --sidebar-ring: 211 100% 50%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  /* 2025 UI Enhancements */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Enhanced touch targets for accessibility */
+  button, [role="button"], input, select, textarea {
+    min-height: 44px; /* WCAG AA compliance */
+    min-width: 44px;
+  }
+
+  /* Focus indicators for accessibility */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  /* Mobile optimizations */
+  input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Enhanced scrollbar styling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Glass morphism utilities */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Animation utilities */
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
