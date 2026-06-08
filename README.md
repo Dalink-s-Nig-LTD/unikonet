@@ -49,4 +49,4 @@ npm run build
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the DALINK'S NIG LTD License.
