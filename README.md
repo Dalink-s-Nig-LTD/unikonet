@@ -1,4 +1,4 @@
-# UniConnect Hub
+# Unikonet
 
 A comprehensive platform for university connectivity and services.
 
@@ -25,7 +25,7 @@ Ensure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)
 
 2. Navigate to the project directory:
    ```sh
-   cd uni-connect-hub-12-main
+   cd unikonet
    ```
 
 3. Install dependencies:

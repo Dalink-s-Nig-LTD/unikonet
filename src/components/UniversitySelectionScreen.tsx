@@ -4,7 +4,7 @@ import { Search, MapPin, Building, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAppStore } from "../store/useAppStore";
 import { universities, University } from "../data/universities";
-import uniconnectLogo from "@/assets/uniconnect-logo.png";
+import unikonetLogo from "@/assets/unikonet-logo.png";
 
 const UniversitySelectionScreen = () => {
   const navigate = useNavigate();
@@ -38,8 +38,8 @@ const UniversitySelectionScreen = () => {
         <div className="flex justify-center mb-6 relative z-10">
           <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
             <img 
-              src={uniconnectLogo} 
-              alt="UniConnect Logo" 
+              src={unikonetLogo} 
+              alt="Unikonet Logo" 
               className="w-16 h-16 object-contain"
             />
           </div>

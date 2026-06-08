@@ -17,7 +17,7 @@ const NotificationsScreen = () => {
     { id: 2, type: 'Like', message: 'Mike Chen liked your thread about machine learning.', timestamp: '1h ago', read: false },
     { id: 3, type: 'Reply', message: 'Alex replied to your comment: "Exactly! Thanks for sharing."', timestamp: '3h ago', read: true },
     { id: 4, type: 'Order', message: 'Your order for "Engineering Drawing Kit" has been shipped.', timestamp: '1d ago', read: true },
-    { id: 5, type: 'System', message: 'Welcome to UniConnect! Complete your profile to get started.', timestamp: '2d ago', read: true },
+    { id: 5, type: 'System', message: 'Welcome to Unikonet! Complete your profile to get started.', timestamp: '2d ago', read: true },
   ] as Notification[];
 
   const unreadCount = displayNotifications.filter(n => !n.read).length;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import uniconnectLogo from "@/assets/uniconnect-logo.png";
+import unikonetLogo from "@/assets/unikonet-logo.png";
 
 const SplashScreen = () => {
   const navigate = useNavigate();
@@ -30,8 +30,8 @@ const SplashScreen = () => {
         <div className="text-center animate-fade-in">
           <div className="relative">
             <img 
-              src={uniconnectLogo} 
-              alt="UniConnect" 
+              src={unikonetLogo} 
+              alt="Unikonet" 
               className="w-[140px] h-[140px] mx-auto mb-8 animate-pulse shadow-glow rounded-3xl"
             />
           </div>

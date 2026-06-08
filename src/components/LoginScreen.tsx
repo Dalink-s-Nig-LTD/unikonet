@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import uniconnectLogo from "@/assets/uniconnect-logo.png";
+import unikonetLogo from "@/assets/unikonet-logo.png";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -26,8 +26,8 @@ const LoginScreen = () => {
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <img 
-              src={uniconnectLogo} 
-              alt="UniConnect Logo" 
+              src={unikonetLogo} 
+              alt="Unikonet Logo" 
               className="w-20 h-20 object-contain"
             />
           </div>
@@ -35,7 +35,7 @@ const LoginScreen = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              UniConnect Login
+              Unikonet Login
             </h1>
             <p className="text-muted-foreground text-sm">
               Enter your school email and password to sign in
