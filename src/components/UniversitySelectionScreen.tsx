@@ -25,7 +25,7 @@ const UniversitySelectionScreen = () => {
 
   const handleSelectUniversity = (uni: University) => {
     setCurrentUser({ university: uni.name });
-    navigate("/setup");
+    navigate("/university-welcome");
   };
 
   return (

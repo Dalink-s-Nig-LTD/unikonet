@@ -21,6 +21,7 @@ import RideBookingDetailScreen from "./components/RideBookingDetailScreen";
 import EventDetailScreen from "./components/EventDetailScreen";
 import PostDetailScreen from "./components/PostDetailScreen";
 import UniversitySelectionScreen from "./components/UniversitySelectionScreen";
+import UniversityWelcomeScreen from "./components/UniversityWelcomeScreen";
 import CartScreen from "./components/CartScreen";
 import CheckoutScreen from "./components/CheckoutScreen";
 import PaymentProcessingScreen from "./components/PaymentProcessingScreen";
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/" element={<SplashScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/select-university" element={<UniversitySelectionScreen />} />
+          <Route path="/university-welcome" element={<UniversityWelcomeScreen />} />
           <Route path="/setup" element={<ProfileSetupScreen />} />
           <Route path="/product/:productId" element={<ProductDetailScreen />} />
           <Route path="/cart" element={<CartScreen />} />

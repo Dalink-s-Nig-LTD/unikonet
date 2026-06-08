@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { useAppStore } from "../store/useAppStore";
 import { useToast } from "@/hooks/use-toast";
+import { getUniversityBranding } from "../data/universityBranding";
+import { UniversityCrest } from "./UniversityCrest";
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
@@ -21,6 +23,8 @@ const ProfileScreen = () => {
     likedPostIds,
     toggleLikedPost 
   } = useAppStore();
+
+  const branding = getUniversityBranding(currentUser?.university);
 
   if (!currentUser) {
     return (
@@ -54,21 +58,35 @@ const ProfileScreen = () => {
     <div className="min-h-screen bg-gradient-subtle font-inter pb-28">
       {/* Cover Header */}
       <div className="relative">
-        <div className="h-44 bg-gradient-primary shadow-elegant relative">
-          <div className="absolute top-4 right-4 flex items-center space-x-2">
+        <div className="h-44 shadow-elegant relative overflow-hidden">
+          <img 
+            src={branding.coverImage} 
+            alt={`${branding.name} Campus`} 
+            className="w-full h-full object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-primary/30 to-black/25"></div>
+          <div className="absolute top-4 right-4 flex items-center space-x-2 z-10">
             <Badge className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border-none font-semibold text-xs">
-              RU Student ID: {currentUser.handle || "@alex"}
+              {branding.abbreviation} ID: {currentUser.handle || "@alex"}
             </Badge>
           </div>
         </div>
         
-        {/* Overlapping Avatar */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-12 z-10">
+        {/* Overlapping Avatar & Crest */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-12 z-10 flex items-end justify-center">
           <div className="w-24 h-24 rounded-3xl border-4 border-card/90 overflow-hidden shadow-glow backdrop-blur-sm bg-muted">
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
               className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="w-10 h-10 -ml-5 -mb-1 p-1 bg-card rounded-xl border border-border/40 shadow-md z-20">
+            <UniversityCrest 
+              abbreviation={branding.abbreviation} 
+              primaryHsl={branding.primaryHsl} 
+              secondaryHex={branding.secondaryHex}
+              size={32}
             />
           </div>
         </div>
