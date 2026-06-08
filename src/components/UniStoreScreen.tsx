@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Search, Filter, Star, Heart, Plus, ShoppingBag, CreditCard, ChevronRight, X, Bell } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { Button } from '@/components/ui/button';
@@ -63,11 +63,14 @@ const UniStoreScreen = () => {
   // Retrieve products dynamically from Zustand store
   const rawProducts = activeTab === 'campus-store' ? campusProducts : studentProducts;
 
-  // Apply search query filter
-  const products = rawProducts.filter(p => 
-    p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    p.category.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Apply search query filter (Memoized)
+  const products = useMemo(() => {
+    const query = searchQuery.toLowerCase().trim();
+    return rawProducts.filter(p => 
+      p.name.toLowerCase().includes(query) || 
+      p.category.toLowerCase().includes(query)
+    );
+  }, [rawProducts, searchQuery]);
 
   // Category image presets
   const storeImagePresets = [

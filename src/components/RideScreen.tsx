@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { MapPin, Clock, Star, Car, Filter, Bike, Bus, Navigation, Shield, Plus, Send } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -47,29 +47,31 @@ const RideScreen = () => {
     }
   };
 
-  // Filter rides dynamically by search fields & tab category
-  const filteredRides = rides.filter(ride => {
-    // Apply tab category filters
-    if (selectedFilter !== "all") {
-      if (selectedFilter === "available") {
-        if (!ride.availableNow) return false;
-      } else if (ride.vehicleType !== selectedFilter) {
+  // Filter rides dynamically by search fields & tab category (Memoized)
+  const filteredRides = useMemo(() => {
+    return rides.filter(ride => {
+      // Apply tab category filters
+      if (selectedFilter !== "all") {
+        if (selectedFilter === "available") {
+          if (!ride.availableNow) return false;
+        } else if (ride.vehicleType !== selectedFilter) {
+          return false;
+        }
+      }
+
+      // Apply pickup search
+      if (pickupQuery.trim() && !ride.from.toLowerCase().includes(pickupQuery.toLowerCase())) {
         return false;
       }
-    }
 
-    // Apply pickup search
-    if (pickupQuery.trim() && !ride.from.toLowerCase().includes(pickupQuery.toLowerCase())) {
-      return false;
-    }
+      // Apply destination search
+      if (dropoffQuery.trim() && !ride.to.toLowerCase().includes(dropoffQuery.toLowerCase())) {
+        return false;
+      }
 
-    // Apply destination search
-    if (dropoffQuery.trim() && !ride.to.toLowerCase().includes(dropoffQuery.toLowerCase())) {
-      return false;
-    }
-
-    return true;
-  });
+      return true;
+    });
+  }, [rides, selectedFilter, pickupQuery, dropoffQuery]);
 
   const handleOfferSubmit = () => {
     if (!from.trim() || !to.trim() || !time.trim() || !priceStr.trim()) {

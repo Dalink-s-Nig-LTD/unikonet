@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, ChevronLeft, Users, Package, MessageSquare, Compass } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -13,19 +13,38 @@ const SearchDiscoverScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
   const { threads, studentProducts, campusProducts, clubs } = useAppStore();
-  const allProducts = [...campusProducts, ...studentProducts];
+  
+  const allProducts = useMemo(() => {
+    return [...campusProducts, ...studentProducts];
+  }, [campusProducts, studentProducts]);
 
   // Filtering logic
-  const query = searchQuery.toLowerCase();
+  const query = searchQuery.toLowerCase().trim();
   
-  const filteredPosts = query ? threads.filter(t => t.content.toLowerCase().includes(query) || t.user.name.toLowerCase().includes(query)) : [];
+  const filteredPosts = useMemo(() => {
+    if (!query) return [];
+    return threads.filter(t => t.content.toLowerCase().includes(query) || t.user.name.toLowerCase().includes(query));
+  }, [threads, query]);
   
-  // For people, we mock it by extracting unique users from threads
-  const uniqueUsers = Array.from(new Map(threads.map(t => [t.user.handle, t.user])).values());
-  const filteredPeople = query ? uniqueUsers.filter(u => u.name.toLowerCase().includes(query) || u.handle.toLowerCase().includes(query)) : [];
+  // For people, we mock it by extracting unique users from threads (Memoized)
+  const uniqueUsers = useMemo(() => {
+    return Array.from(new Map(threads.map(t => [t.user.handle, t.user])).values());
+  }, [threads]);
+
+  const filteredPeople = useMemo(() => {
+    if (!query) return [];
+    return uniqueUsers.filter(u => u.name.toLowerCase().includes(query) || u.handle.toLowerCase().includes(query));
+  }, [uniqueUsers, query]);
   
-  const filteredProducts = query ? allProducts.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query)) : [];
-  const filteredClubs = query ? clubs.filter(c => c.name.toLowerCase().includes(query) || c.category.toLowerCase().includes(query)) : [];
+  const filteredProducts = useMemo(() => {
+    if (!query) return [];
+    return allProducts.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+  }, [allProducts, query]);
+
+  const filteredClubs = useMemo(() => {
+    if (!query) return [];
+    return clubs.filter(c => c.name.toLowerCase().includes(query) || c.category.toLowerCase().includes(query));
+  }, [clubs, query]);
 
   return (
     <div className="min-h-screen bg-background font-inter pb-safe">
