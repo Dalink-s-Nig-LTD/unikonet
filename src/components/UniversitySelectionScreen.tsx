@@ -4,7 +4,27 @@ import { Search, MapPin, Building, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAppStore } from "../store/useAppStore";
 import { universities, University } from "../data/universities";
+import { getUniversityLogoUrl } from "../data/universityLogos";
 import unikonetLogo from "@/assets/unikonet-logo.png";
+
+/** Small logo thumbnail with fallback to Building icon */
+const UniLogo = ({ name, primaryClass }: { name: string; primaryClass?: string }) => {
+  const [err, setErr] = useState(false);
+  const logoUrl = getUniversityLogoUrl(name);
+  if (logoUrl && !err) {
+    return (
+      <img
+        src={logoUrl}
+        alt={name}
+        className="w-8 h-8 object-contain"
+        onError={() => setErr(true)}
+        loading="lazy"
+      />
+    );
+  }
+  return <Building className="w-6 h-6" />;
+};
+
 
 const UniversitySelectionScreen = () => {
   const navigate = useNavigate();
@@ -84,8 +104,8 @@ const UniversitySelectionScreen = () => {
               className="bg-card p-4 rounded-2xl border border-border/40 flex items-center justify-between cursor-pointer hover:border-primary/40 hover:shadow-md transition-all duration-300 active:scale-[0.98] group"
             >
               <div className="flex items-center gap-4 min-w-0 flex-1">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                  <Building className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 overflow-hidden">
+                  <UniLogo name={uni.name} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <h3 className="font-bold text-foreground text-sm truncate pr-2 group-hover:text-primary transition-colors">

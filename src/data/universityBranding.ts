@@ -1,3 +1,5 @@
+import { getUniversityLogoUrl } from './universityLogos';
+
 export interface UniversityBranding {
   name: string;
   abbreviation: string;
@@ -6,6 +8,8 @@ export interface UniversityBranding {
   secondaryHex: string;
   coverImage: string;
   motto: string;
+  /** Google S2 favicon CDN URL (256 px) for the university's official logo, or '' */
+  logoUrl: string;
 }
 
 // Curated pool of high-res Unsplash college campus photos
@@ -125,7 +129,8 @@ export function getUniversityBranding(universityName: string | undefined): Unive
       primaryGlowHsl: "211 100% 65%",
       secondaryHex: "#007AFF",
       coverImage: campusCovers[0],
-      motto: "Striving for academic brilliance"
+      motto: "Striving for academic brilliance",
+      logoUrl: ""
     };
   }
 
@@ -134,6 +139,7 @@ export function getUniversityBranding(universityName: string | undefined): Unive
   if (official) {
     return {
       name: universityName,
+      logoUrl: getUniversityLogoUrl(universityName),
       ...official
     };
   }
@@ -176,6 +182,7 @@ export function getUniversityBranding(universityName: string | undefined): Unive
     primaryGlowHsl,
     secondaryHex,
     coverImage,
-    motto
+    motto,
+    logoUrl: getUniversityLogoUrl(universityName)
   };
 }
