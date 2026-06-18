@@ -12,10 +12,10 @@ const SplashScreen = () => {
       setDots(prev => prev.length >= 3 ? "" : prev + ".");
     }, 500);
 
-    // Navigate to login after 3 seconds
+    // Navigate to landing after 2 seconds
     const timer = setTimeout(() => {
-      navigate("/login");
-    }, 3000);
+      navigate("/landing");
+    }, 2000);
 
     return () => {
       clearInterval(interval);

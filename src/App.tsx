@@ -8,7 +8,10 @@ import MainLayout from "./layouts/MainLayout";
 
 // Static core entrance components for instant loading
 import SplashScreen from "./components/SplashScreen";
+import LandingScreen from "./components/LandingScreen";
 import LoginScreen from "./components/LoginScreen";
+import SignupScreen from "./components/SignupScreen";
+import ForgotPasswordScreen from "./components/ForgotPasswordScreen";
 
 // Lazy-loaded components for optimal bundle splitting
 const ProfileSetupScreen = lazy(() => import("./components/ProfileSetupScreen"));
@@ -62,7 +65,10 @@ const App = () => (
           <Routes>
             {/* Full-screen routes (No tab bar) */}
             <Route path="/" element={<SplashScreen />} />
+            <Route path="/landing" element={<LandingScreen />} />
             <Route path="/login" element={<LoginScreen />} />
+            <Route path="/signup" element={<SignupScreen />} />
+            <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
             <Route path="/select-university" element={<UniversitySelectionScreen />} />
             <Route path="/university-welcome" element={<UniversityWelcomeScreen />} />
             <Route path="/setup" element={<ProfileSetupScreen />} />

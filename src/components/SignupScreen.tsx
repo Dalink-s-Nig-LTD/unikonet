@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, ArrowLeft, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft, Mail, Lock, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import unikonetLogo from "@/assets/unikonet-logo.png";
@@ -14,23 +14,24 @@ const GoogleIcon = () => (
   </svg>
 );
 
-const LoginScreen = () => {
+const SignupScreen = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [fullName, setFullName] = useState("");
   const [schoolEmail, setSchoolEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    // Login logic here
-    console.log("Login attempt:", { schoolEmail, password });
-    // Navigate to university selection after successful login
+    // Signup logic here
+    console.log("Signup attempt:", { fullName, schoolEmail, password });
+    // Navigate to university selection after successful signup
     navigate("/select-university");
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Google Login attempt");
-    // Simulate successful Google Login
+  const handleGoogleSignup = () => {
+    console.log("Google Signup attempt");
+    // Simulate successful Google Signup
     navigate("/select-university");
   };
 
@@ -69,14 +70,34 @@ const LoginScreen = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              Welcome back
+              Create an account
             </h1>
             <p className="text-muted-foreground text-sm">
-              Log in to your Unikonet account
+              Join your campus community today
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleSignup} className="space-y-5">
+            {/* Full Name Input */}
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5 ml-1">
+                Full Name
+              </label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
+                  <User className="w-5 h-5" />
+                </div>
+                <Input
+                  type="text"
+                  placeholder="John Doe"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="h-14 pl-11 text-foreground border-border/50 placeholder:text-muted-foreground rounded-2xl bg-background/50 focus:bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
+                  required
+                />
+              </div>
+            </div>
+
             {/* School Email Input */}
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5 ml-1">
@@ -108,11 +129,12 @@ const LoginScreen = () => {
                 </div>
                 <Input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Create a password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="h-14 pl-11 pr-12 text-foreground border-border/50 placeholder:text-muted-foreground rounded-2xl bg-background/50 focus:bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
                   required
+                  minLength={8}
                 />
                 <button
                   type="button"
@@ -122,23 +144,14 @@ const LoginScreen = () => {
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              <div className="flex justify-end mt-2">
-                <button 
-                  type="button"
-                  onClick={() => navigate('/forgot-password')}
-                  className="text-sm font-medium text-primary hover:text-primary-glow transition-colors"
-                >
-                  Forgot password?
-                </button>
-              </div>
             </div>
 
-            {/* Login Button */}
+            {/* Signup Button */}
             <Button
               type="submit"
-              className="w-full h-14 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl transition-all duration-300 hover:scale-[1.02] shadow-md mt-2"
+              className="w-full h-14 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl transition-all duration-300 hover:scale-[1.02] shadow-md mt-4"
             >
-              Log In
+              Sign Up
             </Button>
           </form>
 
@@ -154,7 +167,7 @@ const LoginScreen = () => {
           {/* Social Login */}
           <Button
             type="button"
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleSignup}
             variant="outline"
             className="w-full h-14 text-base font-medium bg-background hover:bg-muted/50 border-border/80 text-foreground rounded-2xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center shadow-sm"
           >
@@ -162,14 +175,14 @@ const LoginScreen = () => {
             Google
           </Button>
 
-          {/* Sign Up Link */}
+          {/* Login Link */}
           <div className="mt-8 text-center text-sm text-muted-foreground">
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <button 
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/login")}
               className="font-semibold text-primary hover:text-primary-glow transition-colors ml-1"
             >
-              Sign up
+              Log in
             </button>
           </div>
         </div>
@@ -178,4 +191,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
