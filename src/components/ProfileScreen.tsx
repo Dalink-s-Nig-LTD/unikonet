@@ -36,12 +36,10 @@ const ProfileScreen = () => {
     );
   }
 
-  // Filter threads authored by this student
   const userThreads = threads.filter(
     t => t.user.handle === currentUser.handle || t.user.name === currentUser.name
   );
 
-  // Filter listings listed by this student (or Alex Doe mock placeholder seller name)
   const userProducts = studentProducts.filter(
     p => p.seller === currentUser.name || p.seller === "Alex Doe" || p.seller === "Ayomide Johnson"
   );
@@ -55,192 +53,198 @@ const ProfileScreen = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle font-inter pb-28">
+    <div className="min-h-screen bg-gradient-subtle font-inter pb-28 relative">
       {/* Cover Header */}
       <div className="relative">
-        <div className="h-44 shadow-elegant relative overflow-hidden">
+        <div className="h-48 w-full relative overflow-hidden rounded-b-[2rem] shadow-elegant">
           <img 
             src={branding.coverImage} 
             alt={`${branding.name} Campus`} 
             className="w-full h-full object-cover" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-primary/30 to-black/25"></div>
-          <div className="absolute top-4 right-4 flex items-center space-x-2 z-10">
-            <Badge className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border-none font-semibold text-xs">
-              {branding.abbreviation} ID: {currentUser.handle || "@alex"}
-            </Badge>
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-black/20 to-black/40"></div>
+          
+          <div className="absolute top-6 right-6 z-10">
+            <div className="px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-full border border-white/20 shadow-sm flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-white text-[10px] font-bold tracking-wider">{branding.abbreviation} ID: {currentUser.handle || "@alex"}</span>
+            </div>
           </div>
         </div>
         
         {/* Overlapping Avatar & Crest */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-12 z-10 flex items-end justify-center">
-          <div className="w-24 h-24 rounded-3xl border-4 border-card/90 overflow-hidden shadow-glow backdrop-blur-sm bg-muted">
-            <img
-              src={currentUser.avatar}
-              alt={currentUser.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="w-10 h-10 -ml-5 -mb-1 p-1 bg-card rounded-xl border border-border/40 shadow-md z-20">
-            <UniversityCrest 
-              abbreviation={branding.abbreviation} 
-              primaryHsl={branding.primaryHsl} 
-              secondaryHex={branding.secondaryHex}
-              size={32}
-            />
+        <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-14 z-10 flex items-end justify-center">
+          <div className="relative">
+            {/* Glowing ring */}
+            <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl scale-110"></div>
+            
+            <div className="w-28 h-28 rounded-full border-[4px] border-background overflow-hidden shadow-elegant relative z-10 bg-muted">
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute bottom-0 right-0 w-8 h-8 p-0.5 bg-card rounded-full border-2 border-background shadow-md z-20 flex items-center justify-center overflow-hidden">
+              <UniversityCrest 
+                abbreviation={branding.abbreviation} 
+                primaryHsl={branding.primaryHsl} 
+                secondaryHex={branding.secondaryHex}
+                size={24}
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Info Section */}
-      <div className="pt-16 px-6">
+      <div className="pt-20 px-6 max-w-md mx-auto">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-extrabold text-foreground mb-1 leading-snug">{currentUser.name}</h2>
-          <p className="text-xs text-muted-foreground mb-4 font-medium">{currentUser.course}</p>
+          <h2 className="text-2xl font-extrabold text-foreground tracking-tight">{currentUser.name}</h2>
+          <p className="text-xs text-muted-foreground font-medium mt-1">{currentUser.course}</p>
           
           {/* Interests Chips */}
-          <div className="flex flex-wrap justify-center gap-1.5 mb-6">
+          <div className="flex flex-wrap justify-center gap-1.5 mt-4">
             {currentUser.interests.map((interest, index) => (
-              <Badge 
+              <span 
                 key={index} 
-                variant="secondary" 
-                className="bg-primary/5 text-primary border border-primary/10 px-3 py-1 rounded-xl text-[10px] font-bold"
+                className="px-2.5 py-1 bg-primary/10 text-primary border border-primary/20 rounded-lg text-[10px] font-bold tracking-wide"
               >
                 {interest}
-              </Badge>
+              </span>
             ))}
           </div>
         </div>
 
         {/* Buttons */}
-        <div className="grid grid-cols-2 gap-3 mb-6">
+        <div className="grid grid-cols-2 gap-3 mb-8">
           <Button 
             onClick={() => navigate("/setup")}
-            variant="outline" 
-            className="h-11 border-border rounded-xl font-bold text-xs hover:bg-muted/40 text-foreground"
+            className="h-12 bg-background hover:bg-muted/50 border border-border/50 shadow-sm rounded-2xl font-bold text-xs text-foreground transition-all duration-300 hover:scale-[1.02]"
           >
             <Edit className="w-4 h-4 mr-2 text-primary" />
-            Edit Credentials
+            Edit Profile
           </Button>
           
           <Button 
             onClick={handleLogout}
-            variant="outline" 
-            className="h-11 border-red-200 text-red-600 hover:text-red-700 hover:bg-red-500/5 rounded-xl font-bold text-xs"
+            className="h-12 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 shadow-sm text-red-600 rounded-2xl font-bold text-xs transition-all duration-300 hover:scale-[1.02]"
           >
             <LogOut className="w-4 h-4 mr-2" />
-            Logout Portal
+            Logout
           </Button>
         </div>
 
         {/* Content Tabs */}
-        <Tabs value={contentTab} onValueChange={setContentTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-muted/40 backdrop-blur-sm rounded-xl p-1 h-11">
-            <TabsTrigger value="posts" className="rounded-lg h-9 text-xs font-semibold">
-              My Threads ({userThreads.length})
-            </TabsTrigger>
-            <TabsTrigger value="listings" className="rounded-lg h-9 text-xs font-semibold">
-              My listings ({userProducts.length})
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="rounded-lg h-9 text-xs font-semibold">
-              Preferences
-            </TabsTrigger>
-          </TabsList>
-          
-          {/* My Threads Tab */}
-          <TabsContent value="posts" className="mt-4 space-y-4 animate-fade-in">
-            {userThreads.map((thread) => {
-              const isLiked = likedPostIds.includes(thread.id);
-              return (
-                <Card 
-                  key={thread.id} 
-                  className="p-4 border border-border/40 bg-card rounded-2xl cursor-pointer hover:shadow-sm"
-                  onClick={() => navigate(`/post/${thread.id}`)}
-                >
-                  <p className="text-xs text-muted-foreground font-medium mb-2">{thread.timestamp}</p>
-                  <p className="text-sm text-foreground leading-relaxed line-clamp-3 mb-3">{thread.content}</p>
-                  <div className="flex items-center space-x-4 pt-2.5 border-t border-border/30">
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleLikedPost(thread.id);
-                      }}
-                      className={`flex items-center space-x-1 text-xs font-semibold ${
-                        isLiked ? 'text-red-500' : 'text-muted-foreground hover:text-red-500'
-                      }`}
-                    >
-                      <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-                      <span>{thread.metrics.likes + (isLiked ? 1 : 0)}</span>
-                    </button>
-                    <span className="text-xs text-muted-foreground font-medium flex items-center space-x-1">
-                      <MessageCircle className="w-4 h-4" />
-                      <span>{thread.commentsList.length} comments</span>
-                    </span>
+        <div className="glass-card rounded-[2rem] p-3 shadow-elegant border border-white/20">
+          <Tabs value={contentTab} onValueChange={setContentTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-muted/40 p-1 rounded-[1.5rem] h-12 mb-4">
+              <TabsTrigger value="posts" className="rounded-xl h-10 text-[11px] font-bold data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-primary transition-all">
+                Threads ({userThreads.length})
+              </TabsTrigger>
+              <TabsTrigger value="listings" className="rounded-xl h-10 text-[11px] font-bold data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-primary transition-all">
+                Listings ({userProducts.length})
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="rounded-xl h-10 text-[11px] font-bold data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-primary transition-all">
+                Preferences
+              </TabsTrigger>
+            </TabsList>
+            
+            {/* My Threads Tab */}
+            <TabsContent value="posts" className="space-y-3 animate-fade-in mt-0">
+              {userThreads.map((thread) => {
+                const isLiked = likedPostIds.includes(thread.id);
+                return (
+                  <div 
+                    key={thread.id} 
+                    className="p-4 border border-border/40 bg-background/50 rounded-2xl cursor-pointer hover:bg-muted/50 transition-colors"
+                    onClick={() => navigate(`/post/${thread.id}`)}
+                  >
+                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider mb-2">{thread.timestamp}</p>
+                    <p className="text-sm text-foreground leading-relaxed line-clamp-3 mb-3">{thread.content}</p>
+                    <div className="flex items-center space-x-4">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleLikedPost(thread.id);
+                        }}
+                        className={`flex items-center space-x-1.5 text-xs font-semibold ${
+                          isLiked ? 'text-red-500' : 'text-muted-foreground hover:text-red-500'
+                        }`}
+                      >
+                        <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
+                        <span>{thread.metrics.likes + (isLiked ? 1 : 0)}</span>
+                      </button>
+                      <span className="text-xs text-muted-foreground font-semibold flex items-center space-x-1.5">
+                        <MessageCircle className="w-4 h-4" />
+                        <span>{thread.commentsList.length}</span>
+                      </span>
+                    </div>
                   </div>
-                </Card>
-              );
-            })}
+                );
+              })}
 
-            {userThreads.length === 0 && (
-              <div className="bg-card rounded-2xl p-8 text-center border border-dashed border-border/40 py-12">
-                <p className="text-xs text-muted-foreground font-semibold">No active threads yet.</p>
-                <Button onClick={() => navigate("/feed")} size="sm" className="mt-3 rounded-lg text-xs font-bold px-3">Compose Thread</Button>
-              </div>
-            )}
-          </TabsContent>
-          
-          {/* My Listings Tab */}
-          <TabsContent value="listings" className="mt-4 space-y-4 animate-fade-in">
-            <div className="grid grid-cols-2 gap-3">
-              {userProducts.map((product) => (
-                <Card 
-                  key={product.id} 
-                  className="p-0 border border-border/40 bg-card rounded-2xl overflow-hidden cursor-pointer hover:shadow-sm"
-                  onClick={() => navigate(`/product/${product.id}`)}
-                >
-                  <div className="aspect-video bg-muted relative">
-                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="p-3">
-                    <h4 className="font-bold text-xs text-foreground line-clamp-1">{product.name}</h4>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="font-extrabold text-primary text-xs">{product.price}</span>
-                      <div className="flex items-center space-x-0.5 text-xs font-semibold text-foreground">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                        <span>{product.rating}</span>
+              {userThreads.length === 0 && (
+                <div className="rounded-2xl p-8 text-center border border-dashed border-border/40 bg-muted/20">
+                  <p className="text-xs text-muted-foreground font-semibold mb-3">No active threads yet.</p>
+                  <Button onClick={() => navigate("/feed")} size="sm" className="rounded-xl text-xs font-bold px-4">Compose Thread</Button>
+                </div>
+              )}
+            </TabsContent>
+            
+            {/* My Listings Tab */}
+            <TabsContent value="listings" className="animate-fade-in mt-0">
+              <div className="grid grid-cols-2 gap-3">
+                {userProducts.map((product) => (
+                  <div 
+                    key={product.id} 
+                    className="border border-border/40 bg-background/50 rounded-2xl overflow-hidden cursor-pointer hover:bg-muted/50 transition-colors flex flex-col"
+                    onClick={() => navigate(`/product/${product.id}`)}
+                  >
+                    <div className="aspect-square bg-muted relative">
+                      <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="p-3 flex flex-col flex-1">
+                      <h4 className="font-bold text-xs text-foreground line-clamp-1 mb-1">{product.name}</h4>
+                      <div className="mt-auto flex justify-between items-center">
+                        <span className="font-extrabold text-primary text-xs">{product.price}</span>
+                        <div className="flex items-center space-x-0.5 text-[10px] font-bold text-foreground">
+                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                          <span>{product.rating}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </Card>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            {userProducts.length === 0 && (
-              <div className="bg-card rounded-2xl p-8 text-center border border-dashed border-border/40 py-12">
-                <p className="text-xs text-muted-foreground font-semibold">No peer market listings active.</p>
-                <Button onClick={() => navigate("/store")} size="sm" className="mt-3 rounded-lg text-xs font-bold px-3">List an Item</Button>
+              {userProducts.length === 0 && (
+                <div className="rounded-2xl p-8 text-center border border-dashed border-border/40 bg-muted/20">
+                  <p className="text-xs text-muted-foreground font-semibold mb-3">No peer market listings active.</p>
+                  <Button onClick={() => navigate("/store")} size="sm" className="rounded-xl text-xs font-bold px-4">List an Item</Button>
+                </div>
+              )}
+            </TabsContent>
+            
+            {/* Settings Tab */}
+            <TabsContent value="settings" className="animate-fade-in mt-0">
+              <div className="bg-background/50 rounded-2xl p-1 border border-border/40">
+                <div className="flex items-center justify-between p-4 border-b border-border/40 hover:bg-muted/30 transition-colors rounded-t-xl cursor-pointer">
+                  <span className="text-xs font-bold text-foreground">Campus Notification Alerts</span>
+                  <div className="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></div>
+                </div>
+                <div className="flex items-center justify-between p-4 border-b border-border/40 hover:bg-muted/30 transition-colors cursor-pointer">
+                  <span className="text-xs font-bold text-foreground">Student Verification Badging</span>
+                  <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-md font-black uppercase tracking-wider">Verified</span>
+                </div>
+                <div className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors rounded-b-xl cursor-pointer">
+                  <span className="text-xs font-bold text-foreground">Data Privacy Encryptions</span>
+                  <span className="text-[10px] bg-foreground/10 text-foreground px-2 py-0.5 rounded-md font-black uppercase tracking-wider">Active</span>
+                </div>
               </div>
-            )}
-          </TabsContent>
-          
-          {/* Settings / Preferences Tab */}
-          <TabsContent value="settings" className="mt-4 animate-fade-in">
-            <div className="bg-card rounded-2xl p-5 border border-border/40 space-y-4 text-sm font-semibold">
-              <div className="flex items-center justify-between py-2.5 border-b border-border/40">
-                <span className="text-foreground">Campus Notification Alerts</span>
-                <div className="w-4 h-4 bg-green-500 rounded-full shadow-sm animate-pulse"></div>
-              </div>
-              <div className="flex items-center justify-between py-2.5 border-b border-border/40">
-                <span className="text-foreground">Student Verification Badging</span>
-                <span className="text-xs text-primary font-extrabold uppercase">Verified</span>
-              </div>
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-foreground">Data Privacy Encryptions</span>
-                <Badge className="bg-primary/10 text-primary border-none">Active</Badge>
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
