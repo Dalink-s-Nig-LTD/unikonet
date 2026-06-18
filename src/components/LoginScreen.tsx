@@ -24,14 +24,14 @@ const LoginScreen = () => {
     e.preventDefault();
     // Login logic here
     console.log("Login attempt:", { schoolEmail, password });
-    // Navigate to university selection after successful login
-    navigate("/select-university");
+    // Navigate to university portal after successful login
+    navigate("/university-welcome");
   };
 
   const handleGoogleLogin = () => {
     console.log("Google Login attempt");
     // Simulate successful Google Login
-    navigate("/select-university");
+    navigate("/university-welcome");
   };
 
   return (
