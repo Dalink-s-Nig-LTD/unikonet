@@ -25,8 +25,8 @@ const SignupScreen = () => {
     e.preventDefault();
     // Signup logic here
     console.log("Signup attempt:", { fullName, schoolEmail, password });
-    // Navigate to university selection after successful signup
-    navigate("/select-university");
+    // Navigate to onboarding wizard and pass the email
+    navigate("/select-university", { state: { email: schoolEmail } });
   };
 
   const handleGoogleSignup = () => {

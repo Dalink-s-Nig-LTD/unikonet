@@ -25,7 +25,7 @@ const ProfileScreen = lazy(() => import("./components/ProfileScreen"));
 const RideBookingDetailScreen = lazy(() => import("./components/RideBookingDetailScreen"));
 const EventDetailScreen = lazy(() => import("./components/EventDetailScreen"));
 const PostDetailScreen = lazy(() => import("./components/PostDetailScreen"));
-const UniversitySelectionScreen = lazy(() => import("./components/UniversitySelectionScreen"));
+const OnboardingWizardScreen = lazy(() => import("./components/OnboardingWizardScreen"));
 const UniversityWelcomeScreen = lazy(() => import("./components/UniversityWelcomeScreen"));
 const CartScreen = lazy(() => import("./components/CartScreen"));
 const CheckoutScreen = lazy(() => import("./components/CheckoutScreen"));
@@ -69,7 +69,7 @@ const App = () => (
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/signup" element={<SignupScreen />} />
             <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
-            <Route path="/select-university" element={<UniversitySelectionScreen />} />
+            <Route path="/select-university" element={<OnboardingWizardScreen />} />
             <Route path="/university-welcome" element={<UniversityWelcomeScreen />} />
             <Route path="/setup" element={<ProfileSetupScreen />} />
             <Route path="/product/:productId" element={<ProductDetailScreen />} />

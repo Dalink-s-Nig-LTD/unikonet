@@ -16,7 +16,6 @@ const ProfileSetupScreen = () => {
   // Load existing states dynamically if editing
   const [fullName, setFullName] = useState(currentUser?.name || "");
   const [department, setDepartment] = useState(currentUser?.course.split(",")[0] || "");
-  const [yearOfStudy, setYearOfStudy] = useState(currentUser?.course.split(",")[1]?.trim() || "");
   const [selectedInterests, setSelectedInterests] = useState<string[]>(currentUser?.interests || ["Technology", "Music"]);
   const [profilePhoto, setProfilePhoto] = useState<string | null>(currentUser?.avatar || null);
 
@@ -29,8 +28,6 @@ const ProfileSetupScreen = () => {
     "Computer Science", "Engineering", "Business Admin", "Nursing", "Law", 
     "Humanities", "Microbiology", "Economics"
   ];
-
-  const years = ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"];
 
   const toggleInterest = (interest: string) => {
     setSelectedInterests(prev => 
@@ -61,7 +58,7 @@ const ProfileSetupScreen = () => {
 
     setCurrentUser({
       name: fullName.trim(),
-      course: `${department || "Computer Science"}, ${yearOfStudy || "Year 3"}`,
+      course: `${department || "Computer Science"}`,
       avatar: profilePhoto || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face",
       interests: selectedInterests.length > 0 ? selectedInterests : ["Technology", "Music"]
     });
@@ -130,39 +127,41 @@ const ProfileSetupScreen = () => {
           />
         </div>
 
-        {/* Department Dropdown */}
-        <div className="grid grid-cols-2 gap-3">
+        {/* Read-Only Academic Details */}
+        <div className="grid grid-cols-2 gap-3 pb-2 border-b border-border/50">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-muted-foreground">Department</label>
-            <Select value={department} onValueChange={setDepartment}>
-              <SelectTrigger className="h-12 text-xs border-2 border-border/50 rounded-2xl bg-background/80">
-                <SelectValue placeholder="Department" />
-              </SelectTrigger>
-              <SelectContent className="bg-background border-border z-50">
-                {departments.map((dept) => (
-                  <SelectItem key={dept} value={dept} className="hover:bg-muted text-xs">
-                    {dept}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <label className="text-xs font-bold text-muted-foreground flex items-center gap-1">
+              Institution <span className="text-[10px] bg-muted px-1.5 rounded-full text-foreground/50">Locked</span>
+            </label>
+            <div className="h-12 px-3 text-xs border-2 border-border/30 rounded-2xl bg-muted/50 flex items-center text-foreground font-medium truncate">
+              {currentUser?.university || "Not set"}
+            </div>
           </div>
+          <div className="space-y-1.5">
+            <label className="text-xs font-bold text-muted-foreground flex items-center gap-1">
+              Class Of <span className="text-[10px] bg-muted px-1.5 rounded-full text-foreground/50">Locked</span>
+            </label>
+            <div className="h-12 px-3 text-xs border-2 border-border/30 rounded-2xl bg-muted/50 flex items-center text-foreground font-medium">
+              {currentUser?.graduationYear || "Not set"}
+            </div>
+          </div>
+        </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold text-muted-foreground">Year of Study</label>
-            <Select value={yearOfStudy} onValueChange={setYearOfStudy}>
-              <SelectTrigger className="h-12 text-xs border-2 border-border/50 rounded-2xl bg-background/80">
-                <SelectValue placeholder="Year of Study" />
-              </SelectTrigger>
-              <SelectContent className="bg-background border-border z-50">
-                {years.map((year) => (
-                  <SelectItem key={year} value={year} className="hover:bg-muted text-xs">
-                    {year}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        {/* Department Dropdown */}
+        <div className="space-y-1.5">
+          <label className="text-xs font-bold text-muted-foreground">Department</label>
+          <Select value={department} onValueChange={setDepartment}>
+            <SelectTrigger className="h-12 text-xs border-2 border-border/50 rounded-2xl bg-background/80">
+              <SelectValue placeholder="Department" />
+            </SelectTrigger>
+            <SelectContent className="bg-background border-border z-50">
+              {departments.map((dept) => (
+                <SelectItem key={dept} value={dept} className="hover:bg-muted text-xs">
+                  {dept}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Interests Multi-select */}

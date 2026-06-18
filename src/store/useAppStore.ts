@@ -13,6 +13,7 @@ export interface User {
   coverImage?: string;
   mutuals?: number;
   university?: string;
+  graduationYear?: string;
 }
 
 export interface ThreadCommentReply {
@@ -252,6 +253,8 @@ export const useAppStore = create<AppState>((set, get) => ({
     bio: "Computer Science junior. Passionate about software engineering, beautiful user experiences, and solving university life problems with code!",
     coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=300&fit=crop",
     mutuals: 0,
+    university: "University of Lagos",
+    graduationYear: "2025"
   },
   cartItemIds: [],
   cartItems: [],
